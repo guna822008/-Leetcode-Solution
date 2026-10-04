@@ -1,0 +1,133 @@
+LEETCODE 912
+
+class Solution {
+    public int[] sortArray(int[] nums) {
+        mergeSort(nums, 0, nums.length - 1);
+        return nums;
+    }
+
+    private void mergeSort(int[] array, int low, int high) {
+        if (low >= high) {
+            return;
+        }
+        int mid = low + (high - low) / 2;
+        mergeSort(array, low, mid);
+        mergeSort(array, mid + 1, high);
+        merge(array, low, mid, high);
+    }
+
+    private void merge(int[] array, int low, int mid, int high) {
+        int n1 = mid - low + 1;
+        int n2 = high - mid;
+        int[] leftPart = new int[n1];
+        int[] rightPart = new int[n2];
+
+        System.arraycopy(array, low, leftPart, 0, n1);
+        System.arraycopy(array, mid + 1, rightPart, 0, n2);
+
+        int p1 = 0, p2 = 0, writeInd = low;
+        while (p1 < n1 && p2 < n2) {
+            if (leftPart[p1] <= rightPart[p2]) {
+                array[writeInd++] = leftPart[p1++];
+            } else {
+                array[writeInd++] = rightPart[p2++];
+            }
+        }
+
+        while (p1 < n1) {
+            array[writeInd++] = leftPart[p1++];
+        }
+
+        while (p2 < n2) {
+            array[writeInd++] = rightPart[p2++];
+        }
+    }
+
+    LEETCODE 75
+
+    public void sortColors(int[] nums) {
+    int low = 0, mid = 0, high = nums.length - 1;
+    while (mid <= high) {
+        if (nums[mid] == 0) {
+            int tmp = nums[low];
+            nums[low++] = nums[mid];
+            nums[mid++] = tmp;
+        } else if (nums[mid] == 1) {
+            mid++;
+        } else {
+            int tmp = nums[mid];
+            nums[mid] = nums[high];
+            nums[high--] = tmp;
+        }
+    }
+}
+
+LEETCODE 147
+
+class Solution {
+    public ListNode insertionSortList(ListNode head) {
+        ListNode dummy = new ListNode(0);
+
+        ListNode current = head;
+         while (current != null) {
+           
+            ListNode next = current.next;
+            ListNode prev = dummy;
+
+            while (prev.next != null && prev.next.val <= current.val) {
+                prev = prev.next;
+            }
+            current.next = prev.next;
+            prev.next = current;
+            current = next;
+        }
+
+        return dummy.next;
+    }
+}
+}
+
+LEETCODE 148
+
+public class Solution {
+  
+  public ListNode sortList(ListNode head) {
+    if (head == null || head.next == null)
+      return head;
+    ListNode prev = null, slow = head, fast = head;
+    
+    while (fast != null && fast.next != null) {
+      prev = slow;
+      slow = slow.next;
+      fast = fast.next.next;
+    }
+    prev.next = null;
+    ListNode l1 = sortList(head);
+    ListNode l2 = sortList(slow);
+    return merge(l1, l2);
+  }
+  
+  ListNode merge(ListNode l1, ListNode l2) {
+    ListNode l = new ListNode(0), p = l;
+    
+    while (l1 != null && l2 != null) {
+      if (l1.val < l2.val) {
+        p.next = l1;
+        l1 = l1.next;
+      } else {
+        p.next = l2;
+        l2 = l2.next;
+      }
+      p = p.next;
+    }
+    
+    if (l1 != null)
+      p.next = l1;
+    
+    if (l2 != null)
+      p.next = l2;
+    
+    return l.next;
+  }
+
+}
