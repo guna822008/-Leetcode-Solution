@@ -1,0 +1,117 @@
+LEETCODE 121
+
+class Solution {
+    public int maxProfit(int[] prices) {
+        int buy = prices[0];
+        int profit = 0;
+        for (int i = 1; i < prices.length; i++) {
+            if (prices[i] < buy) {
+                buy = prices[i];
+            } else if (prices[i] - buy > profit) {
+                profit = prices[i] - buy;
+            }
+        }
+        return profit;
+    }
+}
+
+LEETCODE 217
+
+class Solution {
+    public boolean containsDuplicate(int[] nums) {
+        int n = nums.length;
+        for (int i = 0; i < n - 1; i++) {
+            for (int j = i + 1; j < n; j++) {
+                if (nums[i] == nums[j])
+                    return true;
+            }
+        }
+        return false;
+    }
+
+LEETCODE 136
+
+    class Solution {
+    public int singleNumber(int[] nums) {
+        int index=0;
+        for(int i=0;i<nums.length;i++){
+            index=index^nums[i];
+        }
+        
+        return index;
+    }
+}
+
+LEETCODE 88
+
+class Solution {
+    public void merge(int[] nums1, int m, int[] nums2, int n) {
+        for (int j = 0, i = m; j < n; j++) {
+            nums1[i] = nums2[j];
+            i++;
+        }
+        Arrays.sort(nums1);
+    }
+}
+
+LEETCODE 128
+
+class Solution {
+    public int longestConsecutive(int[] nums) {
+        Set<Integer> numSet = new HashSet<>();
+
+        for (int num : nums) {
+            numSet.add(num);
+        }
+
+        int longest = 0;
+
+        for (int n : numSet) {
+            if (!numSet.contains(n - 1)) {
+                int length = 1;
+
+                while (numSet.contains(n + length)) {
+                    length++;
+                }
+
+                longest = Math.max(longest, length);
+            }
+        }
+
+        return longest;
+    }
+}
+
+LEETCODE 84
+
+
+class Solution {
+    public int largestRectangleArea(int[] heights) {
+        int n = heights.length;
+        int[] left = new int[n];
+        int[] right = new int[n];
+        Stack<Integer> stack = new Stack<>();
+
+        for (int i = 0; i < n; i++) {
+            while (!stack.isEmpty() && heights[stack.peek()] >= heights[i]) stack.pop();
+            left[i] = stack.isEmpty() ? -1 : stack.peek();
+            stack.push(i);
+        }
+
+        stack.clear(); // Reuse stack
+
+        for (int i = n - 1; i >= 0; i--) {
+            while (!stack.isEmpty() && heights[stack.peek()] >= heights[i]) stack.pop();
+            right[i] = stack.isEmpty() ? n : stack.peek();
+            stack.push(i);
+        }
+
+        int maxArea = 0;
+        for (int i = 0; i < n; i++) {
+            int width = right[i] - left[i] - 1;
+            maxArea = Math.max(maxArea, heights[i] * width);
+        }
+        return maxArea;
+    }
+}
+}
