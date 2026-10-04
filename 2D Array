@@ -1,0 +1,152 @@
+LEETCODE 1672
+
+class Solution {
+    public int maximumWealth(int[][] accounts) {
+        int rich = 0;
+        for (int[] i : accounts) {
+            int sum = 0;
+            for (int money : i) {
+                sum += money;
+            }
+            rich = Math.max(rich, sum);
+        }
+        return rich;
+    }
+}  
+
+LEETCODE 1572
+
+class Solution {
+
+    public int diagonalSum(int[][] mat) {
+
+        int n = mat.length;
+        int sum = 0;
+
+        for (int i = 0; i < n; i++) {
+
+            sum = sum + mat[i][i];
+
+            if (i != n - 1 - i) {
+                sum = sum + mat[i][n - 1 - i];
+            }
+        }
+        return sum;
+    }
+
+    LEETCODE 832
+
+    class Solution {
+    public int[][] flipAndInvertImage(int[][] image) {
+        int row=image.length;
+        int cols=image[0].length;
+        int[][]res=new int[row][cols];
+    
+    for(int i=0;i<row;i++){
+        for(int j=0;j<cols;j++){
+            res[i][j]=image[i][cols-j-1];
+        }
+    }
+    for(int i=0;i<row;i++){
+        for(int j=0;j<cols;j++){
+            res[i][j]=res[i][j]==1?0:1;
+        }
+    }
+    return res;
+}
+}
+
+LEETCODE 1351
+
+class Solution {
+    public int countNegatives(int[][] grid) {
+        int m = grid.length, n = grid[0].length;
+        int i = m - 1, j = 0;
+
+        int res = 0;
+
+        while (i >= 0 && j < n) {
+            if (grid[i][j] < 0) {
+                res += n - j;
+                i--;
+            } else
+                j++;
+        }
+
+        return res;
+    }
+}
+
+LEETCODE 2319
+
+class Solution {
+    public boolean checkXMatrix(int[][] grid) {
+        int n = grid.length;
+        for(int i=0; i<n; i++){
+            for(int j=0; j<n; j++ ){
+                if ( i == j  || i + j == n - 1 ) {
+                    if ( grid[i][j] == 0 ) return false;                    
+                }
+				else if ( grid[i][j] != 0 ) return false;                                    
+            }
+        }       
+       return true;
+    }
+}
+
+LEETCODE 867
+
+class Solution {
+
+    public int[][] transpose(int[][] matrix) {
+
+        int n = matrix.length;//row
+        int m = matrix[0].length;//column
+
+        int[][] newmatrix = new int[m][n];
+
+        for (int i = 0; i < m; i++) {
+
+            for (int j = 0; j < n; j++) {
+
+                newmatrix[i][j] = matrix[j][i];
+            }
+        }
+        return newmatrix;
+    }
+}
+
+LEETCODE 766
+
+class Solution {
+    public boolean isToeplitzMatrix(int[][] matrix) {
+        for(int i=1;i<matrix.length;i++){
+            for(int j=1;j<matrix[i].length;j++){
+                if(matrix[i][j]!=matrix[i-1][j-1]){
+                    return false;
+                }
+            }
+        }
+        return true;
+    }
+}
+
+LEETCODE 1672
+
+class Solution {
+    public int maximumWealth(int[][] accounts) {
+        int rich = 0;
+        for (int[] i : accounts) {
+            int sum = 0;
+            for (int money : i) {
+                sum += money;
+            }
+            rich = Math.max(rich, sum);
+        }
+        return rich;
+    }
+}  
+
+
+
+}
