@@ -1,0 +1,76 @@
+LEETCODE 344
+
+class Solution {
+    public void reverseString(char[] s) {
+        int left = 0;
+        int right = s.length - 1;
+
+        while(left < right){
+            char temp = s[left];
+            s[left] = s[right];
+            s[right] = temp;
+
+            left++;
+            right--;
+        }
+       
+    }
+}
+
+LEETCODE 2574
+
+class Solution {
+    public int[] leftRightDifference(int[] nums) {
+        int rightSum = 0;
+
+        for (int num : nums) {
+            rightSum += num;
+        }
+
+        int leftSum = 0;
+        int[] result = new int[nums.length];
+
+        for (int i = 0; i < nums.length; i++) {
+            rightSum -= nums[i];
+            result[i] = Math.abs(leftSum - rightSum);
+            leftSum += nums[i];
+        }
+
+        return result;
+    }
+}
+
+LEETCODE 1475
+
+class Solution {
+    public int[] finalPrices(int[] prices) {
+        int n=prices.length;
+        Stack<Integer> st=new Stack();
+
+        for(int i=n-1; i>=0; i--){
+            while(!st.isEmpty() && st.peek()>prices[i]){
+                st.pop();
+            }
+            int discount=st.isEmpty()?0:st.peek();
+            st.push(prices[i]);
+
+            prices[i]-=discount;           
+        }
+
+        return prices;
+    }
+}
+
+LEETCODE 1920
+
+class Solution {
+    public int[] buildArray(int[] nums) {
+        int[] temp = new int[nums.length];
+        for (int i = 0; i < nums.length; i++)
+            temp[i] = nums[nums[i]];
+        return temp;
+    }
+}
+
+
+LEETCODE 1475
